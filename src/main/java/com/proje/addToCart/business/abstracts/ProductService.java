@@ -8,7 +8,7 @@ public interface ProductService {
 
 	List<Product> getAll();
 	void add(Product product);
-	void update(int id, Product product);
+	Product update(Product product);
 	void delete(int id);
 	Product getById(int id);
 

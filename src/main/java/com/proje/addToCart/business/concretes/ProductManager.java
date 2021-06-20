@@ -1,6 +1,7 @@
 package com.proje.addToCart.business.concretes;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,13 +41,14 @@ public class ProductManager implements ProductService{
 
 	@Override
 	@Transactional
-	public void update(int id, Product product) {
-		Product _product=productDao.getOne(id);
+	public Product update(Product product) {
+		Integer rollNumber=product.getProductId();
+		Product _product =productDao.findById(rollNumber).get();
 		_product.setCategoryId(product.getCategoryId());
 		_product.setProductName(product.getProductName());
 		_product.setUnitPrice(product.getUnitPrice());
 		_product.setUnitsInStock(product.getUnitsInStock());
-		productDao.save(product);
+		return productDao.save(product);
 	}
 
 	@Override
@@ -58,8 +60,7 @@ public class ProductManager implements ProductService{
 	@Override
 	@Transactional
 	public Product getById(int id) {
-		
-		return productDao.getOne(id);
+		return productDao.findById(id).orElseThrow();
 	}
 
 }

@@ -3,6 +3,7 @@ package com.proje.addToCart.api;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.proje.addToCart.business.abstracts.OrderService;
 import com.proje.addToCart.entities.concretes.Order;
 
+@CrossOrigin(origins="http://localhost:4200")
 @RestController
 @RequestMapping("/api/orders")
 public class OrdersController {
@@ -38,9 +40,9 @@ public class OrdersController {
 		this.orderService.add(order);
 	}
 	
-	@PutMapping("/update/{id}")
-	public void update(@PathVariable int id, @RequestBody Order order) {
-		this.orderService.update(id,order);
+	@PutMapping("/update")
+	public Order update(@RequestBody Order order) {
+		return this.orderService.update(order);
 	}
 	
 	@DeleteMapping("/delete/{id}")

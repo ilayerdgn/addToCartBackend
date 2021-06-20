@@ -30,6 +30,11 @@ public class ProductsController {
 		this.productService = productService;
 	}
 	
+	@GetMapping("/getById/{id}")
+	public Product getById(@PathVariable int id) {
+		return this.productService.getById(id);
+	}
+	
 	@GetMapping("/getall")
 	public List<Product> getAll(){
 		return this.productService.getAll();
@@ -41,9 +46,9 @@ public class ProductsController {
 		this.productService.add(product);
 	}
 	
-	@PutMapping("/update/{id}")
-	public void update(@PathVariable int id, @RequestBody Product product) {
-		this.productService.update(id,product);
+	@PutMapping("/update")
+	public Product update(@RequestBody Product product) {
+		return this.productService.update(product);
 	}
 	
 	@DeleteMapping("/delete/{id}")

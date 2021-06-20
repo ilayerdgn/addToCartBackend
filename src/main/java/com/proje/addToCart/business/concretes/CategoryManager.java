@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.proje.addToCart.business.abstracts.CategoryService;
 import com.proje.addToCart.dataAccess.abstracts.CategoryDao;
 import com.proje.addToCart.entities.concretes.Category;
+import com.proje.addToCart.entities.concretes.Product;
 
 
 @Service
@@ -41,10 +42,11 @@ public class CategoryManager implements CategoryService{
 
 	@Override
 	@Transactional
-	public void update(int id, Category category) {
-		Category _category=categoryDao.getOne(id);
+	public Category update(Category category) {
+		Integer rollNumber=category.getCategoryId();
+		Category _category =categoryDao.findById(rollNumber).get();
 		_category.setCategoryName(category.getCategoryName());
-		
+		return categoryDao.save(_category);
 	}
 
 	@Override
